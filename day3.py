@@ -16,8 +16,9 @@ def scan(schematic):
                     break
 
 def neighbors(schematic, i, j1, j2):
-    return ((schematic[ii][jj], ii, jj) for ii, jj 
-            in chain(product([i-1, i+1], range(j1-1, j2+1)), [[i, j1-1], [i, j2]])
+    return ((schematic[ii][jj], ii, jj)
+            for ii in range(i-1, i+2) for jj in range(j1-1, j2+1)
+            if not (ii == i and j1 <= jj < j2)
             if 0 <= ii < len(schematic) and 0 <= jj < len(schematic[0]))
 
 print(sum(n for n, i, j in scan(lines)))

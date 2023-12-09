@@ -2,10 +2,8 @@ from utils import *
 
 lines = read_lines()
 
-import re
 from itertools import product, chain
 from collections import defaultdict
-from math import prod
 
 def scan(schematic):
     for i, line in enumerate(schematic):
@@ -26,4 +24,4 @@ print(sum(n for n, i, j in scan(lines)))
 adj_nums = defaultdict(list)
 for n, i, j in scan(lines):
     adj_nums[i, j].append(n)
-print(sum(prod(ns) for ns in adj_nums.values() if len(ns) == 2))
+print(sum(math.prod(ns) for ns in adj_nums.values() if len(ns) == 2))

@@ -1,6 +1,4 @@
 from utils import *
-import re
-import math
 
 instr, _, *lines = read_lines()
 

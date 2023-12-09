@@ -1,6 +1,4 @@
 from utils import *
-import re
-import math
 
 times, dists = read_lines()
 # times, dists = """Time:      7  15   30

@@ -6,8 +6,6 @@ seeds = list(map(int, seeds[6:].split()))
 seeds
 
 # %%
-import re
-
 def parse_maps(maps):
     ret = {}
     pat = r"(\w+)-to-(\w+) map:\n([\s\d]+)"

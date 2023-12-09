@@ -1,4 +1,3 @@
-import re
 from utils import *
 
 lines = read_lines()

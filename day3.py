@@ -1,9 +1,7 @@
 from utils import *
+from collections import defaultdict
 
 lines = read_lines()
-
-from itertools import product, chain
-from collections import defaultdict
 
 def scan(schematic):
     for i, line in enumerate(schematic):

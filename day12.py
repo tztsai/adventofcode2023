@@ -9,6 +9,7 @@ lines = read_lines()
 # ????.#...#... 4,1,1
 # ????.######..#####. 1,6,5
 # ?###???????? 3,2,1""".splitlines()
+
 inputs = [(r, tuple(map(int, g.split(','))))
           for r, g in map(str.split, lines)]
 

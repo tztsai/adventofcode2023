@@ -1,6 +1,5 @@
 # %%
 from utils import *
-from itertools import islice, tee
 
 seqs = [[int(n) for n in line.split()] for line in read_lines()]
 

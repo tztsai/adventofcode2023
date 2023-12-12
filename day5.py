@@ -1,7 +1,7 @@
 # %%
 from utils import *
 
-seeds, *maps = read_lines(sep='\n\n')#, filename='day5-eg.txt')
+seeds, *maps = read_lines(sep='\n\n')
 seeds = list(map(int, seeds[6:].split()))
 seeds
 

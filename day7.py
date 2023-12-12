@@ -7,7 +7,7 @@ lines = read_lines()
 # T55J5 684
 # KK677 28
 # KTJJT 220
-# QQQJA 483'''.split('\n')
+# QQQJA 483'''.splitlines()
 
 hands, bids = zip(*map(str.split, lines))
 card_stren = {c: i for i, c in enumerate('23456789TJQKA')}

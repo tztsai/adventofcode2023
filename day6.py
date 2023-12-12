@@ -3,6 +3,7 @@ from utils import *
 times, dists = read_lines()
 # times, dists = """Time:      7  15   30
 # Distance:  9  40  200""".splitlines()
+
 records = list(zip(
     map(int, re.findall(r'\d+', times)),
     map(int, re.findall(r'\d+', dists))

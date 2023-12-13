@@ -1,6 +1,7 @@
 from utils import *
 from functools import lru_cache
 from tqdm import tqdm
+import tracemalloc
 
 lines = read_lines()
 # lines = """???.### 1,1,3
@@ -13,7 +14,7 @@ lines = read_lines()
 inputs = [(r, tuple(map(int, g.split(','))))
           for r, g in map(str.split, lines)]
 
-@lru_cache(1000000)
+@lru_cache(2 ** 20)
 def count_arranges(row, groups):
     row = row.strip('.')
     if len(row) < sum(groups):
@@ -37,4 +38,9 @@ print(sum(count_arranges(r, g) for r, g in inputs))
 def count_unfolded_arranges(rows, groups, k=5):
     return count_arranges('?'.join([rows] * k), groups * k)
 
+tracemalloc.start()
+
 print(sum(count_unfolded_arranges(r, g) for r, g in tqdm(inputs)))
+
+print("Current {:.2f} MB, Peak {:.2f} MB"
+      .format(*map(lambda x: x / 10**6, tracemalloc.get_traced_memory())))

@@ -35,19 +35,20 @@ def tilt_cycle(grid):
     grid = tilt_horizontal(grid, 1)
     return grid
 
-new_grid = grid
 i = 0
 cache = {grid: 0}
 
 while i < 1000000000:
-    new_grid = tilt_cycle(new_grid)
+    grid = tilt_cycle(grid)
     i += 1
-    if new_grid in cache and 'cycle_len' not in globals():
-        cycle_start = cache[new_grid]
+    if 'cycle_len' in globals():
+        continue
+    elif grid in cache:
+        cycle_start = cache[grid]
         cycle_len = i - cycle_start
         print("cycle start:", cycle_start, "cycle len:", cycle_len)
         i += ((1000000000 - i) // cycle_len) * cycle_len
     else:
-        cache[new_grid] = i
+        cache[grid] = i
 
-print(calc_load(new_grid))
+print(calc_load(grid))

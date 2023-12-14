@@ -1,7 +1,5 @@
 from utils import *
 from functools import lru_cache
-from tqdm import tqdm
-import tracemalloc
 
 lines = read_lines()
 # lines = """???.### 1,1,3
@@ -38,9 +36,5 @@ print(sum(count_arranges(r, g) for r, g in inputs))
 def count_unfolded_arranges(rows, groups, k=5):
     return count_arranges('?'.join([rows] * k), groups * k)
 
-tracemalloc.start()
-
-print(sum(count_unfolded_arranges(r, g) for r, g in tqdm(inputs)))
-
-print("Current {:.2f} MB, Peak {:.2f} MB"
-      .format(*map(lambda x: x / 10**6, tracemalloc.get_traced_memory())))
+print(sum(count_unfolded_arranges(r, g) for r, g in inputs))
+# the cache takes about 71 MB of space

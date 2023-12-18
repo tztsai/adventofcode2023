@@ -1,5 +1,4 @@
 from utils import *
-from collections import defaultdict
 
 lines = """R 6 (#70c710)
 D 5 (#0dc571)
@@ -27,15 +26,15 @@ def dig(path, pos, dir, steps):
     return pos
 
 def parse_line(line):
-    dir, steps, color = pattern.match(line).groups()
-    return dir, int(steps), color
+    dir, steps, _ = pattern.match(line).groups()
+    return dir, int(steps)
 
 def measure(plan):
     path = []
     border = 0
     pos = (0, 0)
     for line in plan:
-        dir, steps, color = parse_line(line)
+        dir, steps = parse_line(line)
         pos = dig(path, pos, directions[dir], steps)
         border += steps
     path.append(path[0])
@@ -48,6 +47,6 @@ def parse_line(line):
     _, _, code = pattern.match(line).groups()
     dir = 'RDLU'[int(code[-1])]
     steps = int('0x' + code[1:-1], 16)
-    return dir, steps, None
+    return dir, steps
 
 print(measure(lines))

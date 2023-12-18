@@ -46,7 +46,7 @@ print(measure(lines))
 def parse_line(line):
     _, _, code = pattern.match(line).groups()
     dir = 'RDLU'[int(code[-1])]
-    steps = int('0x' + code[1:-1], 16)
+    steps = int(code[1:-1], 16)
     return dir, steps
 
 print(measure(lines))

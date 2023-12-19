@@ -39,7 +39,7 @@ def heuristic(cell, goal):
     return abs(cell[0] - goal[0]) + abs(cell[1] - goal[1])
 
 
-lines = read_lines()
+lines = read_input()
 grid = [[int(c) for c in line] for line in lines]
 
 MIN_STEPS = 1

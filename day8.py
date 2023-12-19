@@ -1,6 +1,6 @@
 from utils import *
 
-instr, _, *lines = read_lines()
+instr, _, *lines = read_input()
 
 graph = {
     m[0]: (m[1], m[2])

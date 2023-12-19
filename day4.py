@@ -1,7 +1,7 @@
 from utils import *
 from collections import Counter
 
-lines = read_lines()
+lines = read_input()
 
 def matches(game):
     pattern = r"Card\s+\d+:\s+((?:\d+\s+)+)\|((?:\s+\d+)+)"

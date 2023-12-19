@@ -1,6 +1,6 @@
 from utils import *
 
-times, dists = read_lines()
+times, dists = read_input()
 # times, dists = """Time:      7  15   30
 # Distance:  9  40  200""".splitlines()
 

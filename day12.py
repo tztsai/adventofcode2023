@@ -1,7 +1,7 @@
 from utils import *
 from functools import lru_cache
 
-lines = read_lines()
+lines = read_input()
 # lines = """???.### 1,1,3
 # .??..??...?##. 1,1,3
 # ?#?#?#?#?#?#?#? 1,3,1,6

@@ -1,6 +1,6 @@
 from utils import *
 
-grids = read_lines(sep='\n\n')
+grids = read_input(sep='\n\n')
 # grids = """#.##..##.
 # ..#.##.#.
 # ##......#

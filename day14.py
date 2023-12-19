@@ -1,6 +1,6 @@
 from utils import *
 
-grid = tuple(read_lines())
+grid = tuple(read_input())
 # grid = """O....#....
 # O.OO#....#
 # .....##...

@@ -2,7 +2,7 @@
 from utils import *
 from collections import Counter
 
-lines = read_lines()
+lines = read_input()
 # lines = '''32T3K 765
 # T55J5 684
 # KK677 28

@@ -1,6 +1,6 @@
 from utils import *
 
-lines = read_lines()
+lines = read_input()
 bag = dict(red = 12, green = 13, blue = 14)
 
 def parse(game):

@@ -1,7 +1,7 @@
 from utils import *
 from collections import defaultdict, OrderedDict
 
-seq = read_lines()[0].split(',')
+seq = read_input()[0].split(',')
 # seq = "rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7".split(',')
 
 def hash(s):

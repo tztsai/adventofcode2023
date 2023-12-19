@@ -1,7 +1,7 @@
 from utils import *
 from collections import defaultdict
 
-lines = read_lines()
+lines = read_input()
 
 def scan(schematic):
     for i, line in enumerate(schematic):

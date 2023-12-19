@@ -28,7 +28,7 @@ def find_next(grid, path, dists):
             if (i - ni, j - nj) in pipes.get(grid[ni][nj], []):
                 return (ni, nj)
 
-grid = read_lines()
+grid = read_input()
 start = find_start(grid)
 path = [start]
 dists = {start: 0}

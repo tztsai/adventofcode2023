@@ -1,7 +1,7 @@
 # %%
 from utils import *
 
-seqs = [[int(n) for n in line.split()] for line in read_lines()]
+seqs = [[int(n) for n in line.split()] for line in read_input()]
 
 def diff(seq):
     return [seq[i+1] - seq[i] for i in range(len(seq)-1)]

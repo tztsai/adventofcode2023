@@ -1,6 +1,6 @@
 from utils import *
 
-lines = read_lines()
+lines = read_input()
 
 galaxies = [
     (i, j) for i, row in enumerate(lines)

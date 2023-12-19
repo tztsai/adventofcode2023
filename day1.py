@@ -1,6 +1,6 @@
 from utils import *
 
-lines = read_lines()
+lines = read_input()
 nums = [list(filter(str.isdigit, line)) for line in lines]
 print(sum(int(ns[0] + ns[-1]) for ns in nums))
 

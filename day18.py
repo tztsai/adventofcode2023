@@ -14,7 +14,7 @@ R 2 (#7807d2)
 U 3 (#a77fa3)
 L 2 (#015232)
 U 2 (#7a21e3)""".splitlines()
-lines = read_lines()
+lines = read_input()
 
 pattern = re.compile(r"([UDLR]) (\d+) \((.*)\)")
 

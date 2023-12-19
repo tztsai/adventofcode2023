@@ -16,9 +16,9 @@ def parse_workflows(workflows, entry='in'):
         var, op, val = re.match(r"(\w+)([<>])(\d+)", cond).groups()
         this = parse_workflow([name])
         that = parse_workflow(rules[1:])
-        if op == '<':  # var < val; var >= val
+        if op == '<':  # var < val, var >= val
             return [var, int(val), this, that]
-        else:  # var > val (var >= val+1); var <= val (var < val+1)
+        else:  # var <= val (var < val+1), var > val (var >= val+1)
             return [var, int(val) + 1, that, this]
     return parse_workflow(workflows[entry])
 

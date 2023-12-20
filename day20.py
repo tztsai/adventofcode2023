@@ -1,6 +1,7 @@
 from utils import *
-from collections import deque, defaultdict
+from collections import deque
 import networkx as nx
+
 
 class Module:
     global_counter = [0, 0]
@@ -32,7 +33,7 @@ class Module:
         return None
     
     def __repr__(self) -> str:
-        return f"{type(self).__name__}({self.name})"#"[{','.join(m.name for m in self.channels_out)}]"
+        return f"{type(self).__name__}({self.name})"
 
     @classmethod
     def send(cls, module, input, source='button'):
@@ -66,6 +67,7 @@ class Conjunction(Module):
     def __call__(self, value, source):
         self.state[source] = value
         return 1 - int(all(self.state.values()))
+
 
 def parse_module(line):
     name, outputs = line.split(' -> ')
@@ -103,6 +105,7 @@ def build_network(lines):
     
     return modules
 
+
 lines = read_input()
 
 network = build_network(lines)
@@ -111,40 +114,35 @@ for _ in range(1000):
     Module.send(network['broadcaster'], 0)
 print(math.prod(Module.global_counter))
 
-def monitor_presses(network, entry='broadcaster'):
-    first_flips = {}
-    traces = defaultdict(list)
-    presses = 0
-    diffs = set()
+
+def find_cycle_freq(network, entry='broadcaster'):
     conj = next(m for m in network[entry].channels_out if isinstance(m, Conjunction))
+    cycle_len = None
+    first_flip_time = {}
     
-    for _ in range(10000):
+    for presses in range(1, 10000):
         Module.send(network[entry], 0)
-        presses += 1
-        if set(first_flips) == set(network):
-            return presses
+        state = {}
+        
         for k, m in network.items():
             if isinstance(m, FlipFlop):
-                traces[k].append(m.state)
-                if m.state and k not in first_flips:
-                    first_flips[k] = presses
-        state = ''.join(
-            str(traces[k][-1]) for k, _ in
-            sorted(first_flips.items(), key=lambda t: t[1]))[::-1]
-        if (d := presses - int(state, 2)) not in diffs:
-            diffs.add(d)
-            print(presses, conj.counter[0], diffs)
-    
-    diffs = sorted(diffs)
-    assert all(diffs[i] - diffs[i-1] == diffs[1] for i in range(2, len(diffs)))
-    conj_in_flips = [first_flips[m.name] for m in conj.channels_out if isinstance(m, FlipFlop)]
-    # print(sum(conj_in_flips) + diffs[1])
-    return diffs[1]
+                state[k] = m.state
+                if m.state and k not in first_flip_time:
+                    first_flip_time[k] = presses
 
-ans = 1
-for m in network['broadcaster'].channels_out:
-    network = build_network(lines)
-    p = monitor_presses(network, m.name)
-    ans *= p
+        state_sum = sum(state[k] * v for k, v in first_flip_time.items())
+        # num presses it takes to become `state` for the first time
+        
+        if presses != state_sum:  # flip-flops should have been reset
+            conj_cycles = conj.counter[0]
+            if cycle_len is None:
+                assert conj_cycles == 1
+                cycle_len = presses - state_sum
+            else:
+                assert presses - state_sum == cycle_len * conj_cycles
     
-print(ans)
+    return cycle_len
+
+
+print(math.prod(find_cycle_freq(build_network(lines), m.name) 
+                for m in network['broadcaster'].channels_out))

@@ -16,23 +16,21 @@ def neighbors(grid, i, j):
 def step(grid, poses):
     return set(nb for p in poses for nb in neighbors(grid, *p))
 
-def run(grid, steps, expansion_points=[]):
+def run(grid, steps):
     poses = set((i, j) for i, row in enumerate(grid) 
                 for j, char in enumerate(row) if char == 'S')
-    traces = []
+    n_grids = 1
+    res = []
     for t in range(steps):
         poses = step(grid, poses)
-        cells = {p[2:]: [] for p in poses}
-        for p in poses:
-            cells[p[2:]].append(p[:2])
-        if traces and len(cells) > len(traces[-1]):
-            print(t+1, len(poses))
-            expansion_points.append(t+1)
-        traces.append(sorted((k, len(v)) for k, v in cells.items()))
-    print(t+1, len(poses))
-    return traces
+        g = len(set(p[2:] for p in poses))
+        res.append([t+1, len(poses), g])
+        if g > n_grids:
+            print("step", t+1, "cells", len(poses), "grids", n_grids)
+            n_grids = g
+    return res
 
-run(grid, 64)
+print(run(grid, 64)[-1][1])
 
 # %%
 def neighbors(grid, i, j, m=0, n=0):
@@ -42,20 +40,15 @@ def neighbors(grid, i, j, m=0, n=0):
             for nn, jj in [divmod(j + dj, N)]
             if grid[ii][jj] != '#')
 
-expansion_points = []
-traces = run(grid, M*5//2+1, expansion_points)
-
-import json
-with open('day21.json', 'w') as f:
-    json.dump(traces, f)
+data = run(grid, M*5//2+1)
 
 # %%
 import numpy as np
 
-data = np.array([[i-1, sum(n for _, n in traces[i-2])] for i in expansion_points[::2]])
+data = np.array([data[i] for i in range(len(data)-1) if data[i][2] < data[i+1][2]])
 print(data)
 # the rate of growth is linear, so we can fit a quadratic polynomial
 # t = (65 + 66) * i + 65, i = 0, 1, 2
-coefs = np.polyfit(data[:, 0], data[:, 1], 2)
-print(np.polyval(coefs, 26501365))
+coefs = np.polyfit(data[::2, 0], data[::2, 1], 2)
+print(coefs, np.polyval(coefs, 26501365))
 # 26501365 = 2023 * (65 + 66) * 100 + 65

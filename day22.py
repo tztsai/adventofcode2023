@@ -28,15 +28,12 @@ def fall_down(bricks, belows):
         bricks[i][2] = [max_z_below + 1, max_z_below + z_hi - z_lo + 1]
 
 def make_graph(bricks, belows):
-    graph = {i: [set(), set()] for i in [-1, *belows]}
+    graph = {i: set() for i in [-1, *belows]}
     for i, js in reversed(belows.items()):
-        if not js:  # on the ground
-            js = [-1]  # node -1 for the ground
-        for j in js:  # i is above j
+        for j in js or [-1]:  # node -1 for the ground (no brick below i)
             if j < 0 or bricks[i][2][0] == bricks[j][2][1] + 1:
-                graph[j][0].add(i)  # j is supporting i
-                graph[i][1].add(j)  # i is supported by j
-    return graph  # graph[i] = [bricks supported by i, bricks supporting i]
+                graph[j].add(i)  # j is supporting i
+    return graph  # graph[j] = bricks supported by j
 
 def count_falling(graph):
     n_falling = {}
@@ -49,7 +46,7 @@ def count_falling(graph):
         while stack:
             b = stack.pop()
             visited.add(b)
-            stack.extend(graph[b][0] - visited)
+            stack.extend(graph[b] - visited)
         n_falling[i] = len(graph) - len(visited)
 
 bricks = list(map(parse_brick, lines))

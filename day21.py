@@ -1,7 +1,7 @@
 # %%
 from utils import *
 
-grid = read_input('day21.txt')
+grid = read_input()
 
 M = len(grid)
 N = len(grid[0])

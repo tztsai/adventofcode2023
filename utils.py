@@ -1,5 +1,7 @@
 import re
 import math
+import networkx as nx
+import matplotlib.pyplot as plt
 import __main__
 
 def read_input(filename=None, sep='\n'):

@@ -1,7 +1,5 @@
 from utils import *
 from collections import defaultdict
-import networkx as nx
-import matplotlib.pyplot as plt
 
 grid = read_input()
 start = (0, grid[0].index('.'))
@@ -68,17 +66,8 @@ def search_longest_path(graph, start, goal):
     return dfs(start, 0)
 
 graph = compress_graph(to_graph(grid), start, goal)
-print(graph)
-
 print(search_longest_path(graph, start, goal))
 
 slope_dirs = dict(zip('>v<^', [dirs] * 4))
 graph = compress_graph(to_graph(grid), start, goal)
-print(graph)
-
-G = nx.Graph()
-G.add_weighted_edges_from([(n, n2, d) for n, nbs in graph.items() for n2, d in nbs.items()])
-nx.draw(G, with_labels=True, node_size=1500, font_size=10)
-plt.show()
-
 print(search_longest_path(graph, start, goal))

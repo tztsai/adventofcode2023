@@ -46,6 +46,15 @@ for p, v in hailstones:
         (z0 - z) * (v0 - v) - (y0 - y) * (w0 - w),
         (x0 - x) * (w0 - w) - (z0 - z) * (u0 - u),
     ])
+    """ System of equations:
+    (x0 - xi) + (u0 - ui) * ti = 0
+    (y0 - yi) + (v0 - vi) * ti = 0
+    (z0 - zi) + (w0 - wi) * ti = 0
+    ==>
+    (y0 - yi) * (u0 - ui) - (x0 - xi) * (v0 - vi) = 0
+    (z0 - zi) * (v0 - vi) - (y0 - yi) * (w0 - wi) = 0
+    (x0 - xi) * (w0 - wi) - (z0 - zi) * (u0 - ui) = 0
+    """
 
 sol = sp.solve(system, symbols)
 print(*sol)

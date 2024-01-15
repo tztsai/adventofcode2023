@@ -115,9 +115,9 @@ for _ in range(1000):
 print(math.prod(Module.global_counter))
 
 
-def find_cycle_freq(network, entry='broadcaster'):
+def find_cycle_len(network, entry='broadcaster'):
     conj = next(m for m in network[entry].channels_out if isinstance(m, Conjunction))
-    cycle_len = None
+    cycle_len = -1
     first_flip_time = {}
     
     for presses in range(1, 10000):
@@ -133,16 +133,13 @@ def find_cycle_freq(network, entry='broadcaster'):
         state_sum = sum(state[k] * v for k, v in first_flip_time.items())
         # num presses it takes to become `state` for the first time
         
-        if presses != state_sum:  # flip-flops should have been reset
-            conj_cycles = conj.counter[0]
-            if cycle_len is None:
-                assert conj_cycles == 1
-                cycle_len = presses - state_sum
-            else:
-                assert presses - state_sum == cycle_len * conj_cycles
+        conj_cycles = conj.counter[0]
+        if conj_cycles == 1:
+            cycle_len = presses - state_sum
+        assert presses - state_sum == cycle_len * conj_cycles
     
     return cycle_len
 
 
-print(math.prod(find_cycle_freq(build_network(lines), m.name) 
+print(math.prod(find_cycle_len(build_network(lines), m.name) 
                 for m in network['broadcaster'].channels_out))
